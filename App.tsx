@@ -1,8 +1,8 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
 import {
   StatusBar,
+  View,
   useWindowDimensions,
-  KeyboardAvoidingView,
   FlatList,
   Keyboard,
   StyleSheet,
@@ -63,13 +63,14 @@ const App = () => {
 
   return (
     <Provider theme={theme}>
-      <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.container}>
         <OrientationLocker orientation={PORTRAIT} />
         <StatusBar backgroundColor={theme.colors.background} />
 
         <Title />
 
         <FlatList
+          keyboardDismissMode="on-drag"
           ref={flatListRef}
           onContentSizeChange={handleContentSizeChange}
           data={data}
@@ -79,7 +80,7 @@ const App = () => {
         />
 
         <Input {...{inputValue, handleInput, handleSubmit}} />
-      </KeyboardAvoidingView>
+      </View>
     </Provider>
   );
 };
@@ -90,5 +91,3 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
 });
-
-export default App;

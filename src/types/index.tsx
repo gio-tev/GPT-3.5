@@ -15,3 +15,9 @@ export type MessageTypes = {
   role: string;
   content: string;
 }[];
+
+export type BotPropTypes = {
+  isLastIndex: boolean;
+  currentResponse: string;
+  content: string;
+};
