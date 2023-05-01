@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import {useTheme} from 'react-native-paper';
+import {TextInput, useTheme} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import {InputPropTypes} from '../types';
 

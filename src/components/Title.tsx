@@ -1,9 +1,16 @@
 import {View, Text, StyleSheet} from 'react-native';
+import {useTheme} from 'react-native-paper';
 
 const Title = () => {
+  const {
+    colors: {
+      elevation: {level5},
+    },
+  } = useTheme();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>GPT-3.5</Text>
+      <Text style={[styles.text, {color: level5}]}>GPT-3.5</Text>
     </View>
   );
 };

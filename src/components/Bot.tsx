@@ -1,21 +1,28 @@
 import {Image, Text, StyleSheet} from 'react-native';
-import theme from '../theme';
+import {useTheme} from 'react-native-paper';
 import {BotPropTypes} from '../types';
 
-const Bot = ({isLastIndex, currentResponse, content}: BotPropTypes) => (
-  <>
-    <Image
-      source={require('../assets/ChatbotLogo.jpeg')}
-      style={styles.chatbotLogo}
-    />
-    <Text style={styles.text}>{isLastIndex ? currentResponse : content}</Text>
-  </>
-);
+const Bot = ({isLastIndex, currentResponse, content}: BotPropTypes) => {
+  const {
+    colors: {primary},
+  } = useTheme();
+
+  return (
+    <>
+      <Image
+        source={require('../assets/ChatbotLogo.jpeg')}
+        style={styles.chatbotLogo}
+      />
+      <Text style={[styles.text, {color: primary}]}>
+        {isLastIndex ? currentResponse : content}
+      </Text>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   text: {
     marginTop: 5,
-    color: theme.colors.primary,
   },
   chatbotLogo: {
     width: 30,
