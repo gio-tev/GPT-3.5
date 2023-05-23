@@ -13,7 +13,9 @@ const User = ({content}: {content: string}) => {
   return (
     <>
       <Feather name="user" size={30} color={level2} style={[styles.logo]} />
-      <Text style={[styles.text, {color: primary}]}>{content}</Text>
+      <Text selectable style={[styles.text, {color: primary}]}>
+        {content}
+      </Text>
     </>
   );
 };

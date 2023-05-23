@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import {API_KEY} from '@env';
 import {MessageTypes} from '../types';
+import {chatTitleRequestText} from '../utils/chatTitleRequest';
 
 const useChatbot = () => {
   const [response, setResponse] = useState('');
+  const [chatTitle, setChatTitle] = useState('');
   const [error, setError] = useState<Error | null>(null);
 
   const fetchData = async (messages: MessageTypes) => {
@@ -22,15 +24,21 @@ const useChatbot = () => {
 
       const data = await res.json();
 
-      setResponse(data.choices[0].message.content);
+      const responseMessage = data.choices[0].message.content;
+      const titleRequested = messages
+        .at(-1)
+        ?.content.startsWith(chatTitleRequestText);
+
+      if (titleRequested) setChatTitle(responseMessage);
+      else setResponse(responseMessage + '_' + Date.now());
     } catch (error) {
+      console.log(error, 'errorrrrrrrrr');
+
       setError(error as Error);
-    } finally {
-      setResponse('');
     }
   };
 
-  return {response, error, fetchData};
+  return {response, chatTitle, error, fetchData};
 };
 
 export default useChatbot;

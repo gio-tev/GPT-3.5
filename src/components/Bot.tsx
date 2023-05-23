@@ -2,7 +2,12 @@ import {Image, Text, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {BotPropTypes} from '../types';
 
-const Bot = ({isLastIndex, currentResponse, content}: BotPropTypes) => {
+const Bot = ({
+  isLastIndex,
+  currentResponse,
+  response,
+  content,
+}: BotPropTypes) => {
   const {
     colors: {primary},
   } = useTheme();
@@ -13,8 +18,8 @@ const Bot = ({isLastIndex, currentResponse, content}: BotPropTypes) => {
         source={require('../assets/ChatbotLogo.jpeg')}
         style={styles.chatbotLogo}
       />
-      <Text style={[styles.text, {color: primary}]}>
-        {isLastIndex ? currentResponse : content}
+      <Text selectable style={[styles.text, {color: primary}]}>
+        {isLastIndex && response ? currentResponse : content}
       </Text>
     </>
   );

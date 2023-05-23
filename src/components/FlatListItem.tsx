@@ -8,7 +8,8 @@ const FlatListItem = ({
   item: {role, content},
   index,
   currentResponse,
-  data,
+  currentChat,
+  response,
 }: FlatListItemPropTypes) => {
   const {
     colors: {
@@ -17,7 +18,7 @@ const FlatListItem = ({
   } = useTheme();
 
   const isRoleUSer = role === 'user';
-  const isLastIndex = index === data.length - 1;
+  const isLastIndex = index === currentChat.length - 1;
   const backgroundColor = isRoleUSer ? level0 : level4;
 
   return (
@@ -25,7 +26,7 @@ const FlatListItem = ({
       {isRoleUSer ? (
         <User {...{content}} />
       ) : (
-        <Bot {...{isLastIndex, currentResponse, content}} />
+        <Bot {...{isLastIndex, currentResponse, response, content}} />
       )}
     </View>
   );
