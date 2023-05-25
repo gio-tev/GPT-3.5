@@ -3,7 +3,12 @@ import {TextInput, useTheme} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import {InputPropTypes} from '../types';
 
-const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
+const Input = ({
+  inputValue,
+  handleInput,
+  handleSubmit,
+  error,
+}: InputPropTypes) => {
   const {
     colors: {
       primary,
@@ -27,7 +32,7 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
       value={inputValue}
       right={
         <TextInput.Icon
-          disabled={!inputValue}
+          disabled={!inputValue && !!error}
           onPress={handleSubmit}
           icon={() => <Feather name="send" size={18} color={level2} />}
         />

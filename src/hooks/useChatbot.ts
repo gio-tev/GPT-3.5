@@ -6,7 +6,7 @@ import {chatTitleRequestText} from '../utils/chatTitleRequest';
 const useChatbot = () => {
   const [response, setResponse] = useState('');
   const [chatTitle, setChatTitle] = useState('');
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState(false);
 
   const fetchData = async (messages: MessageTypes) => {
     try {
@@ -23,6 +23,8 @@ const useChatbot = () => {
       });
 
       const data = await res.json();
+      // console.log(data);
+      if (data.error) throw new Error(data.error.message);
 
       const responseMessage = data.choices[0].message.content;
       const titleRequested = messages
@@ -31,10 +33,12 @@ const useChatbot = () => {
 
       if (titleRequested) setChatTitle(responseMessage);
       else setResponse(responseMessage + '_' + Date.now());
+
+      setError(false);
     } catch (error) {
       console.log(error, 'errorrrrrrrrr');
 
-      setError(error as Error);
+      setError(true);
     }
   };
 

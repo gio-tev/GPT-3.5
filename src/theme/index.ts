@@ -2,6 +2,7 @@ export const lightTheme = {
   colors: {
     primary: '#445962',
     background: '#fff',
+    error: '#ff5151',
     elevation: {
       level0: 'transparent',
       level1: '#8e8e98',
@@ -17,6 +18,7 @@ export const darkTheme = {
   colors: {
     primary: '#fff',
     background: '#343541',
+    error: '#ff5151',
     elevation: {
       level0: 'transparent',
       level1: '#8e8e98',

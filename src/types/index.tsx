@@ -1,4 +1,4 @@
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, NavigationProp} from '@react-navigation/native';
 
 export type FlatListItemPropTypes = {
   item: {role: string; content: string};
@@ -12,6 +12,7 @@ export type InputPropTypes = {
   inputValue: string;
   handleInput: (text: string) => void;
   handleSubmit: () => void;
+  error: boolean;
 };
 
 export type MessageTypes = {
@@ -28,7 +29,7 @@ export type BotPropTypes = {
 
 export type ChatTypes = {
   id: number;
-  title: string; //| undefined; ///////////////////////////////////////////////////////
+  title: string;
   messages: {content: string; role: string}[];
 };
 
@@ -36,16 +37,12 @@ export type ChatState = {
   chatHistory: ChatTypes[];
   updateChatHistory: (by: ChatTypes) => void;
   saveChatHistory: (by: ChatTypes) => void;
+  deleteChatHistory: (by: number) => void;
 };
 
 type DrawerParamList = {
   Chat: ChatTypes;
 };
-// type DrawerParamList = {
-//   Chat: {
-//     chatHistory: ChatTypes[];
-//     id: number;
-//   };
-// };
 
 export type ChatRouteProp = RouteProp<DrawerParamList, 'Chat'>;
+export type ChatNavigationProp = NavigationProp<DrawerParamList, 'Chat'>;

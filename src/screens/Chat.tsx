@@ -1,13 +1,20 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
-import {View, FlatList, Keyboard, useWindowDimensions} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Keyboard,
+  useWindowDimensions,
+} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
-import {useTheme} from 'react-native-paper';
+import {useTheme, Button} from 'react-native-paper';
 import useChatbot from '../hooks/useChatbot';
 import StatusBar from '../components/StatusBar';
 import Title from '../components/Title';
 import FlatListItem from '../components/FlatListItem';
 import Input from '../components/Input';
+import Error from '../components/Error';
 import {chatTitleRequestText, uniqueTitleText} from '../utils/chatTitleRequest';
 import {MessageTypes, ChatRouteProp} from '../types';
 import useChatHistoryStore from '../store/useChatHistoryStore';
@@ -17,7 +24,8 @@ const Chat = () => {
   const flatListRef = useRef<FlatList>(null);
   const {height} = useWindowDimensions();
 
-  const {response, chatTitle, fetchData} = useChatbot();
+  const {response, chatTitle, fetchData, error} = useChatbot(); //////
+  const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [currentChat, setCurrentChat] = useState<MessageTypes>([]);
   const [currentResponse, setCurrentResponse] = useState('');
@@ -28,14 +36,17 @@ const Chat = () => {
   const {chatHistory, saveChatHistory, updateChatHistory} = useChatHistoryStore(
     state => state,
   );
-  const id = route.params?.id;
+  let id = route.params?.id;
   const chat = chatHistory?.find(chat => chat.id === id);
   const title = chat?.title;
   const messages = chat?.messages;
-  const savedChatNames = chatHistory?.map(chat => chat.title);
 
   const {
-    colors: {background},
+    colors: {
+      background,
+      error: errorColor,
+      elevation: {level3},
+    },
   } = useTheme();
 
   useEffect(() => {
@@ -53,6 +64,12 @@ const Chat = () => {
   }, [chatTitle]);
 
   useEffect(() => {
+    if (error) setHasError(true);
+  }, [error]);
+
+  useEffect(() => {
+    const savedChatNames = chatHistory?.map(chat => chat.title);
+
     if (currentChat.length === 2 && !chat && !currentChatTitle) {
       console.log('runs title request');
 
@@ -97,6 +114,7 @@ const Chat = () => {
         ...prev,
         {role: 'assistant', content: withoutTimestamp},
       ]);
+
       setCurrentResponse('');
 
       let i = 0;
@@ -116,9 +134,10 @@ const Chat = () => {
     [height],
   );
 
-  const handleInput = useCallback((text: string) => {
-    setInputValue(text);
-  }, []);
+  const handleInput = useCallback(
+    (text: string) => setInputValue(text),
+    [inputValue],
+  );
 
   const handleSubmit = useCallback(() => {
     const message = {role: 'user', content: inputValue};
@@ -130,25 +149,36 @@ const Chat = () => {
     Keyboard.dismiss();
   }, [inputValue, fetchData]);
 
+  const handleRefresh = useCallback(() => {
+    id = 0;
+    setCurrentChat([]);
+    setCurrentChatTitle(undefined);
+    setHasError(false);
+  }, [id]);
+
   return (
     <View style={{flex: 1, backgroundColor: background}}>
       <StatusBar />
       <OrientationLocker orientation={PORTRAIT} />
       <Title />
 
-      <FlatList
-        keyboardDismissMode="on-drag"
-        ref={flatListRef}
-        onContentSizeChange={handleContentSizeChange}
-        data={currentChat}
-        renderItem={props => (
-          <FlatListItem
-            {...{currentResponse, currentChat, response, ...props}}
-          />
-        )}
-      />
+      {hasError ? (
+        <Error handleRefresh={handleRefresh} />
+      ) : (
+        <FlatList
+          keyboardDismissMode="on-drag"
+          ref={flatListRef}
+          onContentSizeChange={handleContentSizeChange}
+          data={currentChat}
+          renderItem={props => (
+            <FlatListItem
+              {...{currentResponse, currentChat, response, ...props}}
+            />
+          )}
+        />
+      )}
 
-      <Input {...{inputValue, handleInput, handleSubmit}} />
+      <Input {...{inputValue, handleInput, handleSubmit, error}} />
     </View>
   );
 };
