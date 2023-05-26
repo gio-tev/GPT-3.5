@@ -1,37 +1,30 @@
 import {create} from 'zustand';
-import {ChatState, ChatTypes} from '../types/index';
-
-const dummyData: ChatTypes[] = [];
-
-for (let i = 1; i <= 20; i++) {
-  const chatObject: ChatTypes = {
-    id: i,
-    title: `Chat ${i}`,
-    messages: [
-      {content: `Message 1 from Chat ${i}`, role: 'user'},
-      {content: `Message 2 from Chat ${i}`, role: 'assistant'},
-    ],
-  };
-
-  dummyData.push(chatObject);
-}
+import {ChatState} from '../types/index';
+import {addChat, updateChat, deleteChat} from '../database/sqlite';
 
 const useChatHistoryStore = create<ChatState>(set => ({
-  chatHistory: dummyData,
-  // chatHistory: [],
+  chatHistory: [],
 
-  saveChatHistory: newChat =>
-    set(state => ({chatHistory: [...state.chatHistory, newChat]})),
+  setChatHistory: chatHistory => {
+    set({chatHistory});
+  },
 
-  updateChatHistory: newMeaages => {
+  saveChatHistory: newChat => {
+    addChat(newChat);
+    set(state => ({chatHistory: [...state.chatHistory, newChat]}));
+  },
+
+  updateChatHistory: newMessages => {
+    updateChat(newMessages);
     set(state => ({
       chatHistory: state.chatHistory.map(chat =>
-        chat.id === newMeaages.id ? newMeaages : chat,
+        chat.id === newMessages.id ? newMessages : chat,
       ),
     }));
   },
 
-  deleteChatHistory: (id: number) => {
+  deleteChatHistory: id => {
+    deleteChat(id);
     set(state => ({
       chatHistory: state.chatHistory.filter(chat => chat.id !== id),
     }));

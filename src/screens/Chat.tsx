@@ -1,14 +1,8 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Keyboard,
-  useWindowDimensions,
-} from 'react-native';
+import {View, FlatList, Keyboard, useWindowDimensions} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
-import {useTheme, Button} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import useChatbot from '../hooks/useChatbot';
 import StatusBar from '../components/StatusBar';
 import Title from '../components/Title';
@@ -24,7 +18,7 @@ const Chat = () => {
   const flatListRef = useRef<FlatList>(null);
   const {height} = useWindowDimensions();
 
-  const {response, chatTitle, fetchData, error} = useChatbot(); //////
+  const {response, chatTitle, fetchData, error} = useChatbot();
   const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [currentChat, setCurrentChat] = useState<MessageTypes>([]);
@@ -36,17 +30,14 @@ const Chat = () => {
   const {chatHistory, saveChatHistory, updateChatHistory} = useChatHistoryStore(
     state => state,
   );
+
   let id = route.params?.id;
   const chat = chatHistory?.find(chat => chat.id === id);
   const title = chat?.title;
   const messages = chat?.messages;
 
   const {
-    colors: {
-      background,
-      error: errorColor,
-      elevation: {level3},
-    },
+    colors: {background},
   } = useTheme();
 
   useEffect(() => {

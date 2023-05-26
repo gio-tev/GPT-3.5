@@ -35,6 +35,7 @@ export type ChatTypes = {
 
 export type ChatState = {
   chatHistory: ChatTypes[];
+  setChatHistory: (by: ChatTypes[]) => void;
   updateChatHistory: (by: ChatTypes) => void;
   saveChatHistory: (by: ChatTypes) => void;
   deleteChatHistory: (by: number) => void;
