@@ -1,4 +1,5 @@
-import {RouteProp, NavigationProp} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 
 export type FlatListItemPropTypes = {
   item: {role: string; content: string};
@@ -46,4 +47,11 @@ type DrawerParamList = {
 };
 
 export type ChatRouteProp = RouteProp<DrawerParamList, 'Chat'>;
-export type ChatNavigationProp = NavigationProp<DrawerParamList, 'Chat'>;
+export type ChatNavigationProp = DrawerNavigationProp<DrawerParamList, 'Chat'>;
+
+export type MenuButtonProps = {navigation: ChatNavigationProp};
+export type DeleteButtonProps = {
+  color: string;
+  navigation: ChatNavigationProp;
+  id: number;
+};

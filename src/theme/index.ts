@@ -2,6 +2,8 @@ export const lightTheme = {
   colors: {
     primary: '#445962',
     background: '#fff',
+    backdrop: '#d8d8e3',
+    onSurface: '#19C37D',
     error: '#ff5151',
     elevation: {
       level0: 'transparent',
@@ -18,6 +20,8 @@ export const darkTheme = {
   colors: {
     primary: '#fff',
     background: '#343541',
+    backdrop: '#3e4052',
+    onSurface: '#19C37D',
     error: '#ff5151',
     elevation: {
       level0: 'transparent',

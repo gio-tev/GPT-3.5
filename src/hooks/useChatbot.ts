@@ -23,7 +23,6 @@ const useChatbot = () => {
       });
 
       const data = await res.json();
-      // console.log(data);
       if (data.error) throw new Error(data.error.message);
 
       const responseMessage = data.choices[0].message.content;

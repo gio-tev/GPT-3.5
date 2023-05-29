@@ -17,14 +17,13 @@ const Title = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    marginBottom: 20,
+    marginTop: 65,
     alignSelf: 'center',
     alignItems: 'center',
   },
   text: {
     fontSize: 40,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
 

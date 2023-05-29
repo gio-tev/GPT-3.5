@@ -1,5 +1,10 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
-import {View, FlatList, Keyboard, useWindowDimensions} from 'react-native';
+import {
+  SafeAreaView,
+  FlatList,
+  useWindowDimensions,
+  Keyboard,
+} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
 import {useTheme} from 'react-native-paper';
@@ -62,8 +67,6 @@ const Chat = () => {
     const savedChatNames = chatHistory?.map(chat => chat.title);
 
     if (currentChat.length === 2 && !chat && !currentChatTitle) {
-      console.log('runs title request');
-
       const content =
         savedChatNames.length === 0
           ? chatTitleRequestText
@@ -148,7 +151,7 @@ const Chat = () => {
   }, [id]);
 
   return (
-    <View style={{flex: 1, backgroundColor: background}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: background}}>
       <StatusBar />
       <OrientationLocker orientation={PORTRAIT} />
       <Title />
@@ -170,7 +173,7 @@ const Chat = () => {
       )}
 
       <Input {...{inputValue, handleInput, handleSubmit, error}} />
-    </View>
+    </SafeAreaView>
   );
 };
 

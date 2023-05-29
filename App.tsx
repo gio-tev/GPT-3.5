@@ -4,7 +4,7 @@ import {Provider} from 'react-native-paper';
 import {lightTheme, darkTheme} from './src/theme';
 import {init, fetchChatHistory} from './src/database/sqlite';
 import useChatHistoryStore from './src/store/useChatHistoryStore';
-import StackNavigator from './src/navigators/StackNavigator';
+import DrawerNavigator from './src/navigators/DrawerNavigator';
 
 const App = () => {
   const theme = useColorScheme() === 'light' ? lightTheme : darkTheme;
@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <Provider theme={theme}>
-      <StackNavigator />
+      <DrawerNavigator />
     </Provider>
   );
 };
