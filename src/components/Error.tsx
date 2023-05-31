@@ -1,5 +1,5 @@
+import {View, Text, StyleSheet} from 'react-native';
 import {useTheme, Button} from 'react-native-paper';
-import {View, Text} from 'react-native';
 
 const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
   const {
@@ -10,10 +10,9 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
   } = useTheme();
 
   return (
-    <View style={{flex: 1, alignItems: 'center', gap: 15, marginTop: 30}}>
+    <View style={styles.container}>
       <Text style={{color: errorColor}}>Server error, please try again</Text>
       <Button
-        // dark
         textColor={errorColor}
         buttonColor={level3}
         icon="refresh"
@@ -29,5 +28,14 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 15,
+    marginTop: 30,
+  },
+});
 
 export default Error;

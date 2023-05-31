@@ -13,7 +13,7 @@ const MenuButton = ({navigation}: MenuButtonProps) => {
       icon="menu"
       iconColor={level5}
       size={30}
-      onPress={() => navigation.openDrawer()}
+      onPress={navigation.openDrawer}
     />
   );
 };

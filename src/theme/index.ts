@@ -3,7 +3,7 @@ export const lightTheme = {
     primary: '#445962',
     background: '#fff',
     backdrop: '#d8d8e3',
-    onSurface: '#19C37D',
+    onSurface: '#55d496',
     error: '#ff5151',
     elevation: {
       level0: 'transparent',
@@ -21,7 +21,7 @@ export const darkTheme = {
     primary: '#fff',
     background: '#343541',
     backdrop: '#3e4052',
-    onSurface: '#19C37D',
+    onSurface: '#55d496',
     error: '#ff5151',
     elevation: {
       level0: 'transparent',

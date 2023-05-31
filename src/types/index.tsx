@@ -55,3 +55,22 @@ export type DeleteButtonProps = {
   navigation: ChatNavigationProp;
   id: number;
 };
+
+type EffectValues = {
+  id: number;
+  response: string;
+  chatTitle: string;
+  currentChat: MessageTypes;
+  currentChatTitle: string | undefined;
+  error: boolean;
+};
+type EffectSetters = {
+  setCurrentChat: React.Dispatch<React.SetStateAction<MessageTypes>>;
+  setCurrentChatTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setHasError: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentResponse: React.Dispatch<React.SetStateAction<string>>;
+};
+
+type FetchData = (messages: MessageTypes) => Promise<void>;
+
+export type ChatEffectTypes = [EffectValues, EffectSetters, FetchData];

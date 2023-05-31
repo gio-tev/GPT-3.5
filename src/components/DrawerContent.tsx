@@ -1,4 +1,4 @@
-import {Text, Pressable} from 'react-native';
+import {Text, Pressable, StyleSheet} from 'react-native';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -14,7 +14,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
   const {
     colors: {
       backdrop,
-      elevation: {level4, level5},
+      primary,
+      elevation: {level4},
     },
   } = useTheme();
 
@@ -30,26 +31,33 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
       <Pressable
         onPress={handlePress}
         style={({pressed}) => [
+          styles.container,
           {
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 10,
-            padding: '3%',
-            marginHorizontal: '4%',
-            marginVertical: 10,
-            borderRadius: 5,
             backgroundColor: pressed ? backdrop : level4,
           },
         ]}>
-        <Feather name="plus" size={22} color={level5} />
+        <Feather name="plus" size={22} color={primary} />
 
-        <Text style={{color: level5, fontWeight: '500'}}>New Chat</Text>
+        <Text style={{color: primary, fontWeight: '500'}}>New Chat</Text>
       </Pressable>
+
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    padding: '3%',
+    marginHorizontal: '4%',
+    marginVertical: 10,
+    borderRadius: 5,
+  },
+});
 
 export default DrawerContent;

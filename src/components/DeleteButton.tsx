@@ -1,3 +1,4 @@
+import {StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import useChatHistoryStore from '../store/useChatHistoryStore';
 import {DeleteButtonProps, ChatNavigationProp} from '../types/index';
@@ -23,13 +24,17 @@ const DeleteButton = ({color, navigation, id}: DeleteButtonProps) => {
       iconColor={color}
       size={22}
       onPress={() => handleChatDelete(navigation, id)}
-      style={{
-        margin: 0,
-        position: 'absolute',
-        right: 5,
-      }}
+      style={styles.iconStyle}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  iconStyle: {
+    margin: 0,
+    position: 'absolute',
+    right: 5,
+  },
+});
 
 export default DeleteButton;
