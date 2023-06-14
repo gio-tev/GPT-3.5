@@ -1,10 +1,5 @@
-import {useState, useRef, useCallback} from 'react';
-import {
-  SafeAreaView,
-  FlatList,
-  useWindowDimensions,
-  Keyboard,
-} from 'react-native';
+import {useState, useCallback} from 'react';
+import {SafeAreaView, Keyboard} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
 import {useTheme} from 'react-native-paper';
@@ -12,10 +7,10 @@ import useChatbot from '../hooks/useChatbot';
 import useChatEffects from '../hooks/useChatEffects';
 import StatusBar from '../components/StatusBar';
 import Title from '../components/Title';
-import FlatListItem from '../components/FlatListItem';
 import Input from '../components/Input';
 import Error from '../components/Error';
 import {MessageTypes, ChatRouteProp} from '../types';
+import FlatList from '../components/FlatList';
 
 const Chat = () => {
   const {response, chatTitle, fetchData, error} = useChatbot();
@@ -27,8 +22,6 @@ const Chat = () => {
     chatTitle || undefined,
   );
 
-  const {height} = useWindowDimensions();
-  const flatListRef = useRef<FlatList>(null);
   const route = useRoute<ChatRouteProp>();
   let id = route.params?.id;
 
@@ -53,13 +46,6 @@ const Chat = () => {
   };
 
   useChatEffects(values, setters, fetchData);
-
-  const handleContentSizeChange = useCallback(
-    (_: number, h: number) => {
-      if (h > height / 2) flatListRef.current?.scrollToEnd();
-    },
-    [height],
-  );
 
   const handleInput = useCallback(
     (text: string) => setInputValue(text),
@@ -89,17 +75,7 @@ const Chat = () => {
       {hasError ? (
         <Error handleRefresh={handleRefresh} />
       ) : (
-        <FlatList
-          keyboardDismissMode="on-drag"
-          ref={flatListRef}
-          onContentSizeChange={handleContentSizeChange}
-          data={currentChat}
-          renderItem={props => (
-            <FlatListItem
-              {...{currentResponse, currentChat, response, ...props}}
-            />
-          )}
-        />
+        <FlatList {...{currentChat, currentResponse, response}} />
       )}
 
       <Input {...{inputValue, handleInput, handleSubmit, error}} />

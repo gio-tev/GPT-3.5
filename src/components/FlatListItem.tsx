@@ -1,8 +1,8 @@
 import {View, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {FlatListItemPropTypes} from '../types';
 import User from './User';
 import Bot from './Bot';
+import {FlatListItemPropTypes} from '../types';
 
 const FlatListItem = ({
   item: {role, content},

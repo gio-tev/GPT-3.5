@@ -1,24 +1,21 @@
 import {StyleSheet} from 'react-native';
 import {TextInput, useTheme} from 'react-native-paper';
-import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {InputPropTypes} from '../types';
 
-const Input = ({
-  inputValue,
-  handleInput,
-  handleSubmit,
-  error,
-}: InputPropTypes) => {
+const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
   const {
     colors: {
       primary,
+      onSurface,
       elevation: {level0, level1, level2, level3},
     },
   } = useTheme();
 
+  const iconBackgroundColor = inputValue ? onSurface : 'transparent';
+
   return (
     <TextInput
-      dense
       mode="outlined"
       activeOutlineColor={level0}
       outlineColor={level0}
@@ -32,9 +29,16 @@ const Input = ({
       value={inputValue}
       right={
         <TextInput.Icon
-          disabled={!inputValue && !!error}
+          disabled={!inputValue}
           onPress={handleSubmit}
-          icon={() => <Feather name="send" size={18} color={level2} />}
+          icon={() => (
+            <Ionicons
+              name="ios-send"
+              size={18}
+              color={inputValue ? 'white' : level2}
+              style={[styles.icon, {backgroundColor: iconBackgroundColor}]}
+            />
+          )}
         />
       }
     />
@@ -49,6 +53,12 @@ const styles = StyleSheet.create({
   },
   outline: {
     borderRadius: 10,
+  },
+  icon: {
+    paddingVertical: 7,
+    paddingRight: 7,
+    paddingLeft: 8,
+    borderRadius: 100,
   },
 });
 

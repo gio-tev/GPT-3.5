@@ -12,7 +12,7 @@ const User = ({content}: {content: string}) => {
 
   return (
     <>
-      <Feather name="user" size={30} color={level2} style={[styles.logo]} />
+      <Feather name="user" size={28} color={level2} style={[styles.logo]} />
       <Text selectable style={[styles.text, {color: primary}]}>
         {content}
       </Text>

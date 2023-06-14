@@ -64,6 +64,7 @@ type EffectValues = {
   currentChatTitle: string | undefined;
   error: boolean;
 };
+
 type EffectSetters = {
   setCurrentChat: React.Dispatch<React.SetStateAction<MessageTypes>>;
   setCurrentChatTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -74,3 +75,9 @@ type EffectSetters = {
 type FetchData = (messages: MessageTypes) => Promise<void>;
 
 export type ChatEffectTypes = [EffectValues, EffectSetters, FetchData];
+
+export type FlatListTypes = {
+  currentChat: MessageTypes;
+  currentResponse: string;
+  response: string;
+};

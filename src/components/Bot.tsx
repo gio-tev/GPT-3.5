@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   chatbotLogo: {
     width: 30,
     height: 30,
-    borderRadius: 3,
+    borderRadius: 100,
     marginRight: 15,
   },
 });
