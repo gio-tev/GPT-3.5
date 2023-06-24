@@ -16,7 +16,10 @@ export const init = async () => {
           )`,
         [],
         () => resolve(),
-        (_, error) => reject(error),
+        (_, error) => {
+          console.log('-------- init');
+          reject(error);
+        },
       );
     });
   });
@@ -44,7 +47,10 @@ export const fetchChatHistory = async (): Promise<ChatTypes[]> => {
 
           resolve(chatHistory);
         },
-        (_, error) => reject(error),
+        (_, error) => {
+          console.log('-------- fetchChatHistory');
+          reject(error);
+        },
       );
     });
   });
@@ -61,7 +67,10 @@ export const addChat = async (
         'INSERT INTO ChatHistory (id, title, messages) VALUES (?, ?, ?)',
         [newChat.id, newChat.title, JSON.stringify(newChat.messages)],
         (_, result) => resolve(result),
-        (_, error) => reject(error),
+        (_, error) => {
+          console.log('-------- addChat');
+          reject(error);
+        },
       );
     });
   });
@@ -82,7 +91,10 @@ export const updateChat = async (
           newMessages.id,
         ],
         (_, result) => resolve(result),
-        (_, error) => reject(error),
+        (_, error) => {
+          console.log('-------- updateChat');
+          reject(error);
+        },
       );
     });
   });
@@ -97,7 +109,10 @@ export const deleteChat = async (id: number): Promise<SQLite.ResultSet> => {
         'DELETE FROM ChatHistory WHERE id = ?',
         [id],
         (_, result) => resolve(result),
-        (_, error) => reject(error),
+        (_, error) => {
+          console.log('-------- deleteChat');
+          reject(error);
+        },
       );
     });
   });

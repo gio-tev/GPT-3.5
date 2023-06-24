@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useColorScheme} from 'react-native';
 import {Provider} from 'react-native-paper';
 import {lightTheme, darkTheme} from './src/theme';
-import {init, fetchChatHistory, deleteChat} from './src/database/sqlite';
+import {init, fetchChatHistory} from './src/database/sqlite';
 import useChatHistoryStore from './src/store/useChatHistoryStore';
 import DrawerNavigator from './src/navigators/DrawerNavigator';
 

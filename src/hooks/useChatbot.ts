@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {API_KEY} from '@env';
-import {MessageTypes} from '../types';
 import {chatTitleRequestText} from '../utils/chatTitleRequest';
+import {MessageTypes} from '../types';
 
 const useChatbot = () => {
   const [response, setResponse] = useState('');

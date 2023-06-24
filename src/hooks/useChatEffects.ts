@@ -57,7 +57,7 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
     if (currentChat.length > 2 && currentChatTitle && oneChatExists) {
       updateChatHistory({
-        id: id || 1,
+        id,
         title: title || currentChatTitle,
         messages: currentChat,
       });
@@ -65,7 +65,7 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
     if (currentChatTitle && !savedChatNames.includes(currentChatTitle)) {
       saveChatHistory({
-        id: id || 1,
+        id,
         title: currentChatTitle,
         messages: currentChat,
       });

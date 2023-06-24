@@ -27,9 +27,7 @@ const NewChatButton = (props: DrawerContentComponentProps) => {
       onPress={handlePress}
       style={({pressed}) => [
         styles.container,
-        {
-          backgroundColor: pressed ? backdrop : level4,
-        },
+        {backgroundColor: pressed ? backdrop : level4},
       ]}>
       <Feather name="plus" size={22} color={primary} />
 

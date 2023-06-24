@@ -1,6 +1,6 @@
 import {create} from 'zustand';
-import {ChatState} from '../types/index';
 import {addChat, updateChat, deleteChat} from '../database/sqlite';
+import {ChatState} from '../types/index';
 
 const useChatHistoryStore = create<ChatState>(set => ({
   chatHistory: [],
