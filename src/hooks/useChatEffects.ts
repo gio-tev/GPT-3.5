@@ -14,6 +14,8 @@ const useChatEffects = (...args: ChatEffectTypes) => {
   const {setCurrentChat, setCurrentChatTitle, setHasError, setCurrentResponse} =
     setters;
 
+  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
+
   const chat = chatHistory?.find(chat => chat.id === id);
   const title = chat?.title;
   const messages = chat?.messages;
@@ -38,6 +40,7 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
   useEffect(() => {
     const savedChatNames = chatHistory?.map(chat => chat.title);
+    const currId = id ? id : lastChatId ? lastChatId + 1 : 1;
 
     if (currentChat.length === 2 && !chat && !currentChatTitle) {
       const content =
@@ -57,7 +60,7 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
     if (currentChat.length > 2 && currentChatTitle && oneChatExists) {
       updateChatHistory({
-        id,
+        id: currId,
         title: title || currentChatTitle,
         messages: currentChat,
       });
@@ -65,7 +68,7 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
     if (currentChatTitle && !savedChatNames.includes(currentChatTitle)) {
       saveChatHistory({
-        id,
+        id: currId,
         title: currentChatTitle,
         messages: currentChat,
       });

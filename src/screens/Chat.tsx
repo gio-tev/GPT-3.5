@@ -10,7 +10,6 @@ import Title from '../components/Title';
 import Input from '../components/Input';
 import Error from '../components/Error';
 import FlatList from '../components/FlatList';
-import useChatHistoryStore from '../store/useChatHistoryStore';
 import {MessageTypes, ChatRouteProp} from '../types';
 
 const Chat = () => {
@@ -23,11 +22,8 @@ const Chat = () => {
     chatTitle || undefined,
   );
 
-  const {chatHistory} = useChatHistoryStore(state => state);
-
-  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
   const route = useRoute<ChatRouteProp>();
-  const id = route.params?.id || (lastChatId ? lastChatId + 1 : 1);
+  const id = route.params?.id;
 
   const {
     colors: {background},
