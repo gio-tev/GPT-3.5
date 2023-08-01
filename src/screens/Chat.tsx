@@ -47,10 +47,7 @@ const Chat = () => {
 
   useChatEffects(values, setters, fetchData);
 
-  const handleInput = useCallback(
-    (text: string) => setInputValue(text),
-    [inputValue],
-  );
+  const handleInput = useCallback((text: string) => setInputValue(text), []);
 
   const handleSubmit = useCallback(() => {
     const message = {role: 'user', content: inputValue};
@@ -60,7 +57,7 @@ const Chat = () => {
     setInputValue('');
 
     Keyboard.dismiss();
-  }, [inputValue, fetchData]);
+  }, [inputValue, fetchData, currentChat]);
 
   const handleRefresh = useCallback(() => {
     setHasError(false);

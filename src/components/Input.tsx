@@ -14,6 +14,15 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
 
   const iconBackgroundColor = inputValue ? onSurface : 'transparent';
 
+  const sendIcon = () => (
+    <Ionicons
+      name="ios-send"
+      size={18}
+      color={inputValue ? 'white' : level2}
+      style={[styles.icon, {backgroundColor: iconBackgroundColor}]}
+    />
+  );
+
   return (
     <TextInput
       mode="outlined"
@@ -31,14 +40,7 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
         <TextInput.Icon
           disabled={!inputValue}
           onPress={handleSubmit}
-          icon={() => (
-            <Ionicons
-              name="ios-send"
-              size={18}
-              color={inputValue ? 'white' : level2}
-              style={[styles.icon, {backgroundColor: iconBackgroundColor}]}
-            />
-          )}
+          icon={sendIcon}
         />
       }
     />

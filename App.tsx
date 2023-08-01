@@ -20,7 +20,7 @@ const App = () => {
         console.log(error, 'errorrr');
       }
     })();
-  }, []);
+  }, [setChatHistory]);
 
   return (
     <Provider theme={theme}>

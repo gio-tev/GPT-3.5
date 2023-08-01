@@ -1,7 +1,7 @@
 export const lightTheme = {
   colors: {
     primary: '#445962',
-    background: '#fff',
+    background: '#ffffff',
     backdrop: '#d8d8e3',
     onSurface: '#00A67E',
     error: '#ff5151',

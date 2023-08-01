@@ -1,14 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import useChatHistoryStore from '../store/useChatHistoryStore';
-import {DeleteButtonProps, ChatNavigationProp} from '../types/index';
+import {DeleteButtonProps} from '../types/index';
 
 const DeleteButton = ({color, navigation, id}: DeleteButtonProps) => {
   const {chatHistory, deleteChatHistory} = useChatHistoryStore(state => state);
 
   const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
 
-  const handleChatDelete = (navigation: ChatNavigationProp, id: number) => {
+  const handleChatDelete = () => {
     deleteChatHistory(id);
 
     navigation.navigate('Chat', {
@@ -23,7 +23,7 @@ const DeleteButton = ({color, navigation, id}: DeleteButtonProps) => {
       icon="delete"
       iconColor={color}
       size={22}
-      onPress={() => handleChatDelete(navigation, id)}
+      onPress={handleChatDelete}
       style={styles.iconStyle}
     />
   );
