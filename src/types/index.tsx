@@ -81,3 +81,14 @@ export type FlatListTypes = {
   currentResponse: string;
   response: string;
 };
+
+export type DeleteButtonTypes = {
+  color: string;
+  navigation: ChatNavigationProp;
+  id: number;
+};
+
+export type SendIconTypes = {
+  iconColor: string;
+  iconBackgroundColor: string;
+};

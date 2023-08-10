@@ -9,7 +9,9 @@ const FlatList = ({currentChat, currentResponse, response}: FlatListTypes) => {
 
   const handleContentSizeChange = useCallback(
     (_: number, h: number) => {
-      if (h > height / 2) flatListRef.current?.scrollToEnd();
+      if (h > height / 2) {
+        flatListRef.current?.scrollToEnd();
+      }
     },
     [height],
   );

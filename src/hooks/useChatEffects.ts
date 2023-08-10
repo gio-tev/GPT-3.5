@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import useChatHistoryStore from '../store/useChatHistoryStore';
 import {chatTitleRequestText, uniqueTitleText} from '../utils/chatTitleRequest';
 import {ChatEffectTypes} from '../types';
@@ -14,11 +14,15 @@ const useChatEffects = (...args: ChatEffectTypes) => {
   const {setCurrentChat, setCurrentChatTitle, setHasError, setCurrentResponse} =
     setters;
 
-  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
-
-  const chat = chatHistory?.find(chat => chat.id === id);
-  const title = chat?.title;
+  const chat = chatHistory?.find(el => el.id === id);
   const messages = chat?.messages;
+  const title = chat?.title;
+  const oneChatExists = chatHistory.some(el => el.id === 1);
+  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
+  const savedChatNames = useMemo(
+    () => chatHistory?.map(el => el.title),
+    [chatHistory],
+  );
 
   useEffect(() => {
     if (messages) {
@@ -28,25 +32,26 @@ const useChatEffects = (...args: ChatEffectTypes) => {
       setCurrentChat([]);
       setCurrentChatTitle(undefined);
     }
-  }, [id]);
+  }, [id, messages, title, setCurrentChat, setCurrentChatTitle]);
 
   useEffect(() => {
     if (chatTitle) setCurrentChatTitle(chatTitle);
-  }, [chatTitle]);
+  }, [chatTitle, setCurrentChatTitle]);
 
   useEffect(() => {
     if (error) setHasError(true);
-  }, [error]);
+  }, [error, setHasError]);
 
   useEffect(() => {
-    const savedChatNames = chatHistory?.map(chat => chat.title);
-    const currId = id ? id : lastChatId ? lastChatId + 1 : 1;
+    const curSavedChatNames = chatHistory?.map(el => el.title);
 
     if (currentChat.length === 2 && !chat && !currentChatTitle) {
       const content =
-        savedChatNames.length === 0
+        curSavedChatNames.length === 0
           ? chatTitleRequestText
-          : chatTitleRequestText + uniqueTitleText + savedChatNames.join(', ');
+          : chatTitleRequestText +
+            uniqueTitleText +
+            curSavedChatNames.join(', ');
 
       const message = {
         role: 'user',
@@ -55,8 +60,10 @@ const useChatEffects = (...args: ChatEffectTypes) => {
 
       fetchData([...currentChat, message]);
     }
+  }, [currentChat, currentChatTitle, chat, fetchData, chatHistory]);
 
-    const oneChatExists = chatHistory.some(chat => chat.id === 1);
+  useEffect(() => {
+    const currId = id ? id : lastChatId ? lastChatId + 1 : 1;
 
     if (currentChat.length > 2 && currentChatTitle && oneChatExists) {
       updateChatHistory({
@@ -65,6 +72,18 @@ const useChatEffects = (...args: ChatEffectTypes) => {
         messages: currentChat,
       });
     }
+  }, [
+    currentChat,
+    currentChatTitle,
+    id,
+    title,
+    updateChatHistory,
+    oneChatExists,
+    lastChatId,
+  ]);
+
+  useEffect(() => {
+    const currId = id ? id : lastChatId ? lastChatId + 1 : 1;
 
     if (currentChatTitle && !savedChatNames.includes(currentChatTitle)) {
       saveChatHistory({
@@ -73,7 +92,14 @@ const useChatEffects = (...args: ChatEffectTypes) => {
         messages: currentChat,
       });
     }
-  }, [currentChat, currentChatTitle]);
+  }, [
+    currentChat,
+    currentChatTitle,
+    saveChatHistory,
+    id,
+    lastChatId,
+    savedChatNames,
+  ]);
 
   useEffect(() => {
     if (response) {
@@ -90,12 +116,13 @@ const useChatEffects = (...args: ChatEffectTypes) => {
       let i = 0;
 
       const interval = setInterval(() => {
-        if (i < withoutTimestamp.length)
-          setCurrentResponse(prev => prev + withoutTimestamp[i]), i++;
-        else clearInterval(interval);
+        if (i < withoutTimestamp.length) {
+          setCurrentResponse(prev => prev + withoutTimestamp[i]);
+          i++;
+        } else clearInterval(interval);
       }, 10);
     }
-  }, [response]);
+  }, [response, setCurrentChat, setCurrentResponse]);
 };
 
 export default useChatEffects;

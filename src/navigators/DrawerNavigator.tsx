@@ -3,9 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import useChatHistoryStore from '../store/useChatHistoryStore';
 import useDrawerStyles from '../hooks/useDrawerStyles';
 import Chat from '../screens/Chat';
-import DrawerContent from '../components/DrawerContent';
-import MenuButton from '../components/MenuButton';
-import DeleteButton from '../components/DeleteButton';
+import {drawerContent, menuButton, deleteButton} from '../utils/helpers';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,13 +16,13 @@ const DrawerNavigator = () => {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={styles}
-        drawerContent={props => <DrawerContent {...props} />}>
+        drawerContent={props => drawerContent(props)}>
         <Drawer.Screen
           name="Chat"
           component={Chat}
           options={({navigation}) => ({
             drawerItemStyle: {display: 'none'},
-            headerLeft: () => <MenuButton navigation={navigation} />,
+            headerLeft: () => menuButton(navigation),
           })}
         />
 
@@ -35,10 +33,8 @@ const DrawerNavigator = () => {
             component={Chat}
             initialParams={{id}}
             options={({navigation}) => ({
-              headerLeft: () => <MenuButton navigation={navigation} />,
-              drawerIcon: ({color}) => (
-                <DeleteButton {...{color, navigation, id}} />
-              ),
+              headerLeft: () => menuButton(navigation),
+              drawerIcon: ({color}) => deleteButton({color, navigation, id}),
             })}
           />
         ))}

@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {TextInput, useTheme} from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {InputPropTypes} from '../types';
+import {sendIcon} from '../utils/helpers';
 
 const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
   const {
@@ -13,15 +13,7 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
   } = useTheme();
 
   const iconBackgroundColor = inputValue ? onSurface : 'transparent';
-
-  const sendIcon = () => (
-    <Ionicons
-      name="ios-send"
-      size={18}
-      color={inputValue ? 'white' : level2}
-      style={[styles.icon, {backgroundColor: iconBackgroundColor}]}
-    />
-  );
+  const iconColor = inputValue ? 'white' : level2;
 
   return (
     <TextInput
@@ -40,7 +32,12 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
         <TextInput.Icon
           disabled={!inputValue}
           onPress={handleSubmit}
-          icon={sendIcon}
+          icon={() =>
+            sendIcon({
+              iconColor,
+              iconBackgroundColor,
+            })
+          }
         />
       }
     />
@@ -55,12 +52,6 @@ const styles = StyleSheet.create({
   },
   outline: {
     borderRadius: 10,
-  },
-  icon: {
-    paddingVertical: 7,
-    paddingRight: 7,
-    paddingLeft: 8,
-    borderRadius: 100,
   },
 });
 

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {API_KEY} from '@env';
 import {chatTitleRequestText} from '../utils/chatTitleRequest';
 import {MessageTypes} from '../types';
@@ -8,7 +8,7 @@ const useChatbot = () => {
   const [chatTitle, setChatTitle] = useState('');
   const [error, setError] = useState(false);
 
-  const fetchData = async (messages: MessageTypes) => {
+  const fetchData = useCallback(async (messages: MessageTypes) => {
     try {
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -35,12 +35,11 @@ const useChatbot = () => {
       else setResponse(responseMessage + '_' + Date.now());
 
       setError(false);
-    } catch (error) {
-      console.log(error, 'errorrrrrrrrr');
-
+    } catch (err) {
+      console.log(err, 'errorrrrrrrrr');
       setError(true);
     }
-  };
+  }, []);
 
   return {response, chatTitle, error, fetchData};
 };
