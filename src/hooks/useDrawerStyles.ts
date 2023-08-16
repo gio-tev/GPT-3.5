@@ -1,7 +1,13 @@
 import {useColorScheme} from 'react-native';
 import {useTheme} from 'react-native-paper';
+import {getScheme} from '../utils/helpers';
+import useColorSchemeStore from '../store/useColorSchemeStore';
 
 const useDrawerStyles = () => {
+  const {scheme} = useColorSchemeStore(state => state);
+
+  const deviceScheme = useColorScheme();
+
   const {
     colors: {
       background,
@@ -11,7 +17,9 @@ const useDrawerStyles = () => {
     },
   } = useTheme();
 
-  const backgroundColor = useColorScheme() === 'light' ? 'white' : background;
+  const backgroundColor =
+    getScheme(scheme, deviceScheme) === 'light' ? 'white' : background;
+  // const backgroundColor = useColorScheme() === 'light' ? 'white' : background;
 
   return {
     headerTitle: '',
@@ -20,11 +28,10 @@ const useDrawerStyles = () => {
     drawerActiveTintColor: onSurface,
     drawerInactiveTintColor: primary,
     drawerStyle: {backgroundColor},
-    drawerLabelStyle: {marginLeft: '-15%'},
+    drawerLabelStyle: {marginLeft: '-10%'},
     drawerItemStyle: {
       marginHorizontal: 0,
       marginVertical: 0,
-      paddingHorizontal: 5,
       borderBottomColor: level4,
       borderBottomWidth: 1,
       borderRadius: 0,

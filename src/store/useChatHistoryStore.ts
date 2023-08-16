@@ -1,12 +1,18 @@
 import {create} from 'zustand';
 import {addChat, updateChat, deleteChat} from '../database/sqlite';
 import {ChatState} from '../types/index';
+import {init, fetchChatHistory} from '../database/sqlite';
 
 const useChatHistoryStore = create<ChatState>(set => ({
   chatHistory: [],
 
-  setChatHistory: chatHistory => {
-    set({chatHistory});
+  setChatHistory: async () => {
+    try {
+      await init();
+      set({chatHistory: await fetchChatHistory()});
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   saveChatHistory: newChat => {

@@ -4,6 +4,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import NewChatButton from './NewChatButton';
+import ColorScheme from './colorScheme/index';
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   return (
@@ -13,6 +14,8 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+
+      <ColorScheme />
     </>
   );
 };

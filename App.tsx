@@ -1,26 +1,36 @@
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {useColorScheme} from 'react-native';
 import {Provider} from 'react-native-paper';
-import {lightTheme, darkTheme} from './src/theme';
-import {init, fetchChatHistory} from './src/database/sqlite';
+
 import useChatHistoryStore from './src/store/useChatHistoryStore';
+import useColorSchemeStore from './src/store/useColorSchemeStore';
 import DrawerNavigator from './src/navigators/DrawerNavigator';
+import {getScheme, getTheme} from './src/utils/helpers';
+import {ThemeState} from './src/types';
 
 const App = () => {
-  const theme = useColorScheme() === 'light' ? lightTheme : darkTheme;
+  const [theme, setTheme] = useState<ThemeState>();
 
   const {setChatHistory} = useChatHistoryStore(state => state);
+  const {scheme, setInitialScheme} = useColorSchemeStore(state => state);
+
+  const deviceScheme = useColorScheme();
 
   useEffect(() => {
-    (async () => {
-      try {
-        await init();
-        setChatHistory(await fetchChatHistory());
-      } catch (error) {
-        console.log(error, 'errorrr');
-      }
-    })();
+    setChatHistory();
   }, [setChatHistory]);
+
+  useEffect(() => {
+    setInitialScheme();
+  }, [setInitialScheme]);
+
+  useEffect(() => {
+    if (scheme) {
+      setTheme(getTheme(getScheme(scheme, deviceScheme)));
+    }
+  }, [scheme, deviceScheme]);
+
+  if (!theme) return null;
 
   return (
     <Provider theme={theme}>

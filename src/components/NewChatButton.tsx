@@ -35,16 +35,16 @@ const NewChatButton = (props: DrawerContentComponentProps) => {
     </Pressable>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'center',
     gap: 10,
     padding: '3%',
-    marginHorizontal: '4%',
+    width: 255,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 10,
   },
 });
 

@@ -36,7 +36,7 @@ export type ChatTypes = {
 
 export type ChatState = {
   chatHistory: ChatTypes[];
-  setChatHistory: (by: ChatTypes[]) => void;
+  setChatHistory: () => void;
   updateChatHistory: (by: ChatTypes) => void;
   saveChatHistory: (by: ChatTypes) => void;
   deleteChatHistory: (by: number) => void;
@@ -91,4 +91,30 @@ export type DeleteButtonTypes = {
 export type SendIconTypes = {
   iconColor: string;
   iconBackgroundColor: string;
+};
+
+export type ThemeState = {
+  colors:
+    | {
+        primary: string;
+        background: string;
+        backdrop: string;
+        onSurface: string;
+        error: string;
+        elevation: {
+          level0: string;
+          level1: string;
+          level2: string;
+          level3: string;
+          level4: string;
+          level5: string;
+        };
+      }
+    | undefined;
+};
+
+export type MenuItemTypes = {
+  handlePress: () => void;
+  scheme: string;
+  value: string;
 };
