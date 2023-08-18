@@ -1,10 +1,11 @@
 import {useRef, useCallback} from 'react';
 import {FlatList as List, useWindowDimensions} from 'react-native';
 import FlatListItem from './FlatListItem';
-import {FlatListTypes} from '../types';
+import {FlatListTypes} from '../../types';
 
 const FlatList = ({currentChat, currentResponse, response}: FlatListTypes) => {
   const flatListRef = useRef<List>(null);
+
   const {height} = useWindowDimensions();
 
   const handleContentSizeChange = useCallback(

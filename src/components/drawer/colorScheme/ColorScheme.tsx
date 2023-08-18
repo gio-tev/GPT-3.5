@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Menu, useTheme} from 'react-native-paper';
-import useColorSchemeStore from '../../store/useColorSchemeStore';
+import useColorSchemeStore from '../../../store/useColorSchemeStore';
 import Anchor from './Anchor';
 import MenuItem from './MenuItem';
 

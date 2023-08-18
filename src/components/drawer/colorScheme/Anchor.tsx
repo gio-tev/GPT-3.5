@@ -10,7 +10,7 @@ const Anchor = ({openMenu}: {openMenu: () => void}) => {
     },
   } = useTheme();
 
-  const styles = getStyles();
+  const styles = getStyles(primary);
 
   return (
     <TouchableRipple
@@ -19,13 +19,13 @@ const Anchor = ({openMenu}: {openMenu: () => void}) => {
       onPress={openMenu}>
       <>
         <Icon name="brightness-4" size={22} color={primary} />
-        <Text style={{color: primary, fontWeight: '500'}}>Color Scheme</Text>
+        <Text style={styles.text}>Color Scheme</Text>
       </>
     </TouchableRipple>
   );
 };
 
-const getStyles = () => {
+const getStyles = (primary: string) => {
   return StyleSheet.create({
     anchor: {
       flexDirection: 'row',
@@ -34,6 +34,10 @@ const getStyles = () => {
       paddingLeft: 21,
       marginBottom: 20,
       height: 45,
+    },
+    text: {
+      color: primary,
+      fontWeight: '500',
     },
   });
 };

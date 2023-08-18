@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import useChatHistoryStore from '../store/useChatHistoryStore';
-import {DeleteButtonProps} from '../types/index';
+import useChatHistoryStore from '../../../store/useChatHistoryStore';
+import {DeleteButtonProps} from '../../../types/index';
 
 const DeleteButton = ({color, navigation, id}: DeleteButtonProps) => {
   const {chatHistory, deleteChatHistory} = useChatHistoryStore(state => state);

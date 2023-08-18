@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import useChatHistoryStore from '../store/useChatHistoryStore';
-import useDrawerStyles from '../hooks/useDrawerStyles';
+import useDrawerStyles from '../components/drawer/useDrawerStyles';
 import Chat from '../screens/Chat';
 import {drawerContent, menuButton, deleteButton} from '../utils/helpers';
 

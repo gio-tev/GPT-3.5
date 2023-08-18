@@ -1,8 +1,8 @@
 import {StatusBar, useColorScheme} from 'react-native';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {useTheme} from 'react-native-paper';
-import useColorSchemeStore from '../store/useColorSchemeStore';
-import {getScheme} from '../utils/helpers';
+import useColorSchemeStore from '../../store/useColorSchemeStore';
+import {getScheme} from '../../utils/helpers';
 
 const AppStatusBar = () => {
   const {scheme} = useColorSchemeStore(state => state);

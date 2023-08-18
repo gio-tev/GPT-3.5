@@ -4,12 +4,12 @@ import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
 import {useTheme} from 'react-native-paper';
 import useChatbot from '../hooks/useChatbot';
-import useChatEffects from '../hooks/useChatEffects';
-import StatusBar from '../components/StatusBar';
-import Title from '../components/Title';
-import Input from '../components/Input';
-import Error from '../components/Error';
-import FlatList from '../components/FlatList';
+import useChatEffects from '../components/chat/useChatEffects';
+import StatusBar from '../components/statusBar/StatusBar';
+import Title from '../components/chat/Title';
+import Input from '../components/chat/Input';
+import Error from '../components/error/Error';
+import FlatList from '../components/flatList/FlatList';
 import {MessageTypes, ChatRouteProp} from '../types';
 
 const Chat = () => {

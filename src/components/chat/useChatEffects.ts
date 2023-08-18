@@ -1,7 +1,7 @@
 import {useEffect, useMemo} from 'react';
-import useChatHistoryStore from '../store/useChatHistoryStore';
-import {chatTitleRequestText, uniqueTitleText} from '../utils/chatTitleRequest';
-import {ChatEffectTypes} from '../types';
+import useChatHistoryStore from '../../store/useChatHistoryStore';
+import {titleRequestText, uniqueTitleText} from '../../utils/chatTitleRequest';
+import {ChatEffectTypes} from '../../types';
 
 const useChatEffects = (...args: ChatEffectTypes) => {
   const {chatHistory, saveChatHistory, updateChatHistory} = useChatHistoryStore(
@@ -48,10 +48,8 @@ const useChatEffects = (...args: ChatEffectTypes) => {
     if (currentChat.length === 2 && !chat && !currentChatTitle) {
       const content =
         curSavedChatNames.length === 0
-          ? chatTitleRequestText
-          : chatTitleRequestText +
-            uniqueTitleText +
-            curSavedChatNames.join(', ');
+          ? titleRequestText
+          : titleRequestText + uniqueTitleText + curSavedChatNames.join(', ');
 
       const message = {
         role: 'user',

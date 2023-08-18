@@ -1,6 +1,6 @@
 import {useState, useCallback} from 'react';
 import {API_KEY} from '@env';
-import {chatTitleRequestText} from '../utils/chatTitleRequest';
+import {titleRequestText} from '../utils/chatTitleRequest';
 import {MessageTypes} from '../types';
 
 const useChatbot = () => {
@@ -29,14 +29,14 @@ const useChatbot = () => {
       const responseMessage = data.choices[0].message.content;
       const titleRequested = messages
         .at(-1)
-        ?.content.startsWith(chatTitleRequestText);
+        ?.content.startsWith(titleRequestText);
 
       if (titleRequested) setChatTitle(responseMessage);
       else setResponse(responseMessage + '_' + Date.now());
 
       setError(false);
     } catch (err) {
-      console.log(err, 'errorrrrrrrrr');
+      console.log(err);
       setError(true);
     }
   }, []);

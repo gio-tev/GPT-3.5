@@ -1,5 +1,5 @@
 import {IconButton, useTheme} from 'react-native-paper';
-import {MenuButtonProps} from '../types/index';
+import {MenuButtonProps} from '../../../types/index';
 
 const MenuButton = ({navigation}: MenuButtonProps) => {
   const {

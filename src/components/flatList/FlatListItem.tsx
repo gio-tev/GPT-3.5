@@ -1,8 +1,8 @@
 import {View, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import User from './User';
-import Bot from './Bot';
-import {FlatListItemPropTypes} from '../types';
+import User from '../chat/User';
+import Bot from '../chat/Bot';
+import {FlatListItemPropTypes} from '../../types';
 
 const FlatListItem = ({
   item: {role, content},
@@ -21,8 +21,10 @@ const FlatListItem = ({
   const isLastIndex = index === currentChat.length - 1;
   const backgroundColor = isRoleUSer ? level0 : level4;
 
+  const styles = getStyles(backgroundColor);
+
   return (
-    <View style={[styles.containder, {backgroundColor}]}>
+    <View style={styles.containder}>
       {isRoleUSer ? (
         <User {...{content}} />
       ) : (
@@ -32,13 +34,16 @@ const FlatListItem = ({
   );
 };
 
-const styles = StyleSheet.create({
-  containder: {
-    flexDirection: 'row',
-    paddingLeft: 20,
-    paddingRight: 60,
-    paddingVertical: 18,
-  },
-});
+const getStyles = (backgroundColor: string) => {
+  return StyleSheet.create({
+    containder: {
+      backgroundColor,
+      flexDirection: 'row',
+      paddingLeft: 20,
+      paddingRight: 60,
+      paddingVertical: 18,
+    },
+  });
+};
 
 export default FlatListItem;

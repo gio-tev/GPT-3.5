@@ -1,8 +1,8 @@
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import DrawerContent from '../components/DrawerContent';
-import MenuButton from '../components/MenuButton';
-import DeleteButton from '../components/DeleteButton';
+import DrawerContent from '../components/drawer/DrawerContent';
+import MenuButton from '../components/drawer/buttons/MenuButton';
+import DeleteButton from '../components/drawer/buttons/DeleteButton';
 import {
   ChatNavigationProp,
   DeleteButtonTypes,
@@ -53,9 +53,3 @@ export const getScheme = (
 export const getTheme = (scheme: string | null | undefined) => {
   return scheme === 'light' ? lightTheme : darkTheme;
 };
-
-// if (scheme === 'default') {
-//   if (deviceScheme === 'light') return 'light';
-//   else return 'dark';
-// } else if (scheme === 'light') return 'light';
-// else return 'dark';

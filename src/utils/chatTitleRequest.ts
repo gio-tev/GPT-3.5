@@ -1,4 +1,4 @@
-export const chatTitleRequestText =
+export const titleRequestText =
   'Based on our chat, give this conversation a 3-word descriptive title';
 
 export const uniqueTitleText =

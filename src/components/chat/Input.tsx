@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {TextInput, useTheme} from 'react-native-paper';
-import {InputPropTypes} from '../types';
-import {sendIcon} from '../utils/helpers';
+import {InputPropTypes} from '../../types';
+import {sendIcon} from '../../utils/helpers';
 
 const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
   const {
@@ -11,6 +11,8 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
       elevation: {level0, level1, level2, level3},
     },
   } = useTheme();
+
+  const styles = getStyles(level3);
 
   const iconBackgroundColor = inputValue ? onSurface : 'transparent';
   const iconColor = inputValue ? 'white' : level2;
@@ -25,7 +27,7 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
       placeholderTextColor={level1}
       placeholder="Send a message..."
       outlineStyle={styles.outline}
-      style={{...styles.input, backgroundColor: level3}}
+      style={styles.input}
       onChangeText={handleInput}
       value={inputValue}
       right={
@@ -44,15 +46,17 @@ const Input = ({inputValue, handleInput, handleSubmit}: InputPropTypes) => {
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    minWidth: '90%',
-    alignSelf: 'center',
-    marginBottom: 15,
-  },
-  outline: {
-    borderRadius: 10,
-  },
-});
+const getStyles = (backgroundColor: string) =>
+  StyleSheet.create({
+    input: {
+      backgroundColor,
+      minWidth: '90%',
+      alignSelf: 'center',
+      marginBottom: 15,
+    },
+    outline: {
+      borderRadius: 10,
+    },
+  });
 
 export default Input;

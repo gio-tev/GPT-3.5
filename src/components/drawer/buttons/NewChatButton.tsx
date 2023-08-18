@@ -1,7 +1,7 @@
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
-import useChatHistoryStore from '../store/useChatHistoryStore';
+import useChatHistoryStore from '../../../store/useChatHistoryStore';
 import Feather from 'react-native-vector-icons/Feather';
 
 const NewChatButton = (props: DrawerContentComponentProps) => {

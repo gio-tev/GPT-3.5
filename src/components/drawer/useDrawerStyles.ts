@@ -1,7 +1,7 @@
 import {useColorScheme} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {getScheme} from '../utils/helpers';
-import useColorSchemeStore from '../store/useColorSchemeStore';
+import {getScheme} from '../../utils/helpers';
+import useColorSchemeStore from '../../store/useColorSchemeStore';
 
 const useDrawerStyles = () => {
   const {scheme} = useColorSchemeStore(state => state);
@@ -19,7 +19,6 @@ const useDrawerStyles = () => {
 
   const backgroundColor =
     getScheme(scheme, deviceScheme) === 'light' ? 'white' : background;
-  // const backgroundColor = useColorScheme() === 'light' ? 'white' : background;
 
   return {
     headerTitle: '',

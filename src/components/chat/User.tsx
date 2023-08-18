@@ -10,23 +10,27 @@ const User = ({content}: {content: string}) => {
     },
   } = useTheme();
 
+  const styles = getStyles(primary);
+
   return (
     <>
-      <Feather name="user" size={28} color={level2} style={[styles.logo]} />
-      <Text selectable style={[styles.text, {color: primary}]}>
+      <Feather name="user" size={28} color={level2} style={styles.logo} />
+      <Text selectable style={styles.text}>
         {content}
       </Text>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  text: {
-    marginTop: 5,
-  },
-  logo: {
-    marginRight: 15,
-  },
-});
+const getStyles = (color: string) =>
+  StyleSheet.create({
+    text: {
+      color,
+      marginTop: 5,
+    },
+    logo: {
+      marginRight: 15,
+    },
+  });
 
 export default User;

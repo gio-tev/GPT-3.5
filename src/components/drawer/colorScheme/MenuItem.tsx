@@ -1,10 +1,13 @@
+import {StyleSheet} from 'react-native';
 import {TouchableRipple, Menu, RadioButton, useTheme} from 'react-native-paper';
-import {MenuItemTypes} from '../../types/index';
+import {MenuItemTypes} from '../../../types/index';
 
 const MenuItem = ({handlePress, scheme, value}: MenuItemTypes) => {
   const {
     colors: {background, primary, onSurface},
   } = useTheme();
+
+  const styles = getStyles(primary);
 
   const title =
     value === 'default'
@@ -15,10 +18,7 @@ const MenuItem = ({handlePress, scheme, value}: MenuItemTypes) => {
     <TouchableRipple
       rippleColor={background}
       onPress={handlePress}
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
+      style={styles.container}>
       <>
         <RadioButton
           color={onSurface}
@@ -27,14 +27,24 @@ const MenuItem = ({handlePress, scheme, value}: MenuItemTypes) => {
           status={scheme === value ? 'checked' : 'unchecked'}
           onPress={handlePress}
         />
-        <Menu.Item
-          titleStyle={{color: primary, fontSize: 15, fontWeight: '700'}}
-          title={title}
-          dense
-        />
+        <Menu.Item titleStyle={styles.menuItem} title={title} dense />
       </>
     </TouchableRipple>
   );
+};
+
+const getStyles = (primary: string) => {
+  return StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    menuItem: {
+      color: primary,
+      fontSize: 15,
+      fontWeight: '700',
+    },
+  });
 };
 
 export default MenuItem;

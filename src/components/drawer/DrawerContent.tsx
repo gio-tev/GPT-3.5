@@ -3,8 +3,8 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import NewChatButton from './NewChatButton';
-import ColorScheme from './colorScheme/index';
+import NewChatButton from './buttons/NewChatButton';
+import ColorScheme from './colorScheme/ColorScheme';
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   return (

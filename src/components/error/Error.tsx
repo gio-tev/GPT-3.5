@@ -9,9 +9,12 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
     },
   } = useTheme();
 
+  const styles = getStyles(errorColor);
+
   return (
     <View style={styles.container}>
-      <Text style={{color: errorColor}}>Server error, please try again</Text>
+      <Text style={styles.text}>Server error, please try again</Text>
+
       <Button
         textColor={errorColor}
         buttonColor={level3}
@@ -29,13 +32,18 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    gap: 15,
-    marginTop: 30,
-  },
-});
+const getStyles = (color: string) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      gap: 15,
+      marginTop: 30,
+    },
+    text: {
+      color,
+    },
+  });
+};
 
 export default Error;
