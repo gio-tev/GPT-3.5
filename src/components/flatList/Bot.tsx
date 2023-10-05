@@ -1,13 +1,7 @@
 import {Image, Text, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {BotPropTypes} from '../../types';
 
-const Bot = ({
-  isLastIndex,
-  currentResponse,
-  response,
-  content,
-}: BotPropTypes) => {
+const Bot = ({message}: {message: string}) => {
   const {
     colors: {primary},
   } = useTheme();
@@ -20,8 +14,9 @@ const Bot = ({
         source={require('../../assets/ChatbotLogo.jpeg')}
         style={styles.chatbotLogo}
       />
+
       <Text selectable style={styles.text}>
-        {isLastIndex && response ? currentResponse : content}
+        {message}
       </Text>
     </>
   );

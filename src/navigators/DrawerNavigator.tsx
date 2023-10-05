@@ -12,6 +12,8 @@ const DrawerNavigator = () => {
 
   const {chatHistory} = useChatHistoryStore(state => state);
 
+  // console.log(chatHistory, 'chatHistory in DrawerNavigator');
+
   return (
     <NavigationContainer>
       <Drawer.Navigator

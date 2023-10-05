@@ -17,6 +17,12 @@ const FlatList = ({currentChat, currentResponse, response}: FlatListTypes) => {
     [height],
   );
 
+  const FlatListItemProps = {
+    currentResponse,
+    currentChat,
+    response,
+  };
+
   return (
     <List
       keyboardDismissMode="on-drag"
@@ -24,7 +30,7 @@ const FlatList = ({currentChat, currentResponse, response}: FlatListTypes) => {
       onContentSizeChange={handleContentSizeChange}
       data={currentChat}
       renderItem={props => (
-        <FlatListItem {...{currentResponse, currentChat, response, ...props}} />
+        <FlatListItem {...{...FlatListItemProps, ...props}} />
       )}
     />
   );

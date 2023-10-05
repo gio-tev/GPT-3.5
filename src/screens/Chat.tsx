@@ -1,63 +1,60 @@
 import {useState, useCallback} from 'react';
 import {SafeAreaView, Keyboard} from 'react-native';
-import {useRoute} from '@react-navigation/native';
 import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
 import {useTheme} from 'react-native-paper';
 import useChatbot from '../hooks/useChatbot';
-import useChatEffects from '../components/chat/useChatEffects';
+import useCurrentChatState from '../components/chat/hooks/useCurrentChatState';
+import useChatEffects from '../components/chat/hooks/useChatEffects';
 import StatusBar from '../components/statusBar/StatusBar';
 import Title from '../components/chat/Title';
 import Input from '../components/chat/Input';
 import Error from '../components/error/Error';
 import FlatList from '../components/flatList/FlatList';
-import {MessageTypes, ChatRouteProp} from '../types';
 
 const Chat = () => {
-  const {response, chatTitle, fetchData, error} = useChatbot();
-  const [hasError, setHasError] = useState(false);
+  const {response, chatTitle, error, fetchData} = useChatbot();
   const [inputValue, setInputValue] = useState('');
-  const [currentChat, setCurrentChat] = useState<MessageTypes>([]);
-  const [currentResponse, setCurrentResponse] = useState('');
-  const [currentChatTitle, setCurrentChatTitle] = useState(
-    chatTitle || undefined,
-  );
+  const [hasError, setHasError] = useState(false);
 
-  const route = useRoute<ChatRouteProp>();
-  const id = route.params?.id;
+  const {
+    currentChat,
+    currentResponse,
+    currentChatTitle,
+    setCurrentChat,
+    setCurrentResponse,
+    setCurrentChatTitle,
+  } = useCurrentChatState();
 
   const {
     colors: {background},
   } = useTheme();
 
-  const values = {
-    id,
+  useChatEffects({
     response,
     chatTitle,
+    error,
+    setHasError,
+    fetchData,
     currentChat,
     currentChatTitle,
-    error,
-  };
-
-  const setters = {
     setCurrentChat,
-    setCurrentChatTitle,
-    setHasError,
     setCurrentResponse,
-  };
+    setCurrentChatTitle,
+  });
 
-  useChatEffects(values, setters, fetchData);
-
-  const handleInput = useCallback((text: string) => setInputValue(text), []);
+  const handleInput = useCallback((text: string) => {
+    setInputValue(text);
+  }, []);
 
   const handleSubmit = useCallback(() => {
     const message = {role: 'user', content: inputValue};
 
     fetchData([...currentChat.slice(-5), message]);
-    setCurrentChat(prev => [...prev, message]);
+    setCurrentChat(prevSate => [...prevSate, message]);
     setInputValue('');
 
     Keyboard.dismiss();
-  }, [inputValue, fetchData, currentChat]);
+  }, [inputValue, fetchData, currentChat, setCurrentChat]);
 
   const handleRefresh = useCallback(() => {
     setHasError(false);

@@ -4,17 +4,14 @@ import useChatHistoryStore from '../../../store/useChatHistoryStore';
 import {DeleteButtonProps} from '../../../types/index';
 
 const DeleteButton = ({color, navigation, id}: DeleteButtonProps) => {
-  const {chatHistory, deleteChatHistory} = useChatHistoryStore(state => state);
-
-  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
+  const {deleteChatHistory} = useChatHistoryStore(state => state);
 
   const handleChatDelete = () => {
     deleteChatHistory(id);
 
-    navigation.navigate('Chat', {
-      id: lastChatId ? lastChatId + 1 : 1,
-      title: '',
-      messages: [],
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Chat'}],
     });
   };
 

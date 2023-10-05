@@ -27,6 +27,7 @@ const useChatbot = () => {
       if (data.error) throw new Error(data.error.message);
 
       const responseMessage = data.choices[0].message.content;
+
       const titleRequested = messages
         .at(-1)
         ?.content.startsWith(titleRequestText);
@@ -36,7 +37,7 @@ const useChatbot = () => {
 
       setError(false);
     } catch (err) {
-      console.log(err);
+      console.log(err, 'error');
       setError(true);
     }
   }, []);

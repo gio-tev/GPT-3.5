@@ -1,12 +1,9 @@
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
-import useChatHistoryStore from '../../../store/useChatHistoryStore';
 import Feather from 'react-native-vector-icons/Feather';
 
 const NewChatButton = (props: DrawerContentComponentProps) => {
-  const {chatHistory} = useChatHistoryStore(state => state);
-
   const {
     colors: {
       backdrop,
@@ -15,16 +12,16 @@ const NewChatButton = (props: DrawerContentComponentProps) => {
     },
   } = useTheme();
 
-  const lastChatId = chatHistory[chatHistory?.length - 1]?.id;
-
-  const handlePress = () =>
-    props.navigation.navigate('Chat', {
-      id: lastChatId ? lastChatId + 1 : 1,
+  const handleNewChatPress = () => {
+    props.navigation.reset({
+      index: 0,
+      routes: [{name: 'Chat'}],
     });
+  };
 
   return (
     <Pressable
-      onPress={handlePress}
+      onPress={handleNewChatPress}
       style={({pressed}) => [
         styles.container,
         {backgroundColor: pressed ? backdrop : level4},
@@ -35,6 +32,7 @@ const NewChatButton = (props: DrawerContentComponentProps) => {
     </Pressable>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',

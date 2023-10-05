@@ -21,13 +21,6 @@ export type MessageTypes = {
   content: string;
 }[];
 
-export type BotPropTypes = {
-  isLastIndex: boolean;
-  currentResponse: string;
-  content: string;
-  response: string;
-};
-
 export type ChatTypes = {
   id: number;
   title: string;
@@ -56,25 +49,19 @@ export type DeleteButtonProps = {
   id: number;
 };
 
-type EffectValues = {
-  id: number;
+export type EffectState = {
   response: string;
   chatTitle: string;
-  currentChat: MessageTypes;
-  currentChatTitle: string | undefined;
   error: boolean;
-};
-
-type EffectSetters = {
-  setCurrentChat: React.Dispatch<React.SetStateAction<MessageTypes>>;
-  setCurrentChatTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
   setHasError: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentResponse: React.Dispatch<React.SetStateAction<string>>;
+  fetchData: (messages: MessageTypes) => Promise<void>;
+
+  currentChat: MessageTypes;
+  currentChatTitle: string;
+  setCurrentChat: (value: React.SetStateAction<MessageTypes>) => void;
+  setCurrentResponse: (value: React.SetStateAction<string>) => void;
+  setCurrentChatTitle: (value: React.SetStateAction<string>) => void;
 };
-
-type FetchData = (messages: MessageTypes) => Promise<void>;
-
-export type ChatEffectTypes = [EffectValues, EffectSetters, FetchData];
 
 export type FlatListTypes = {
   currentChat: MessageTypes;
@@ -114,7 +101,24 @@ export type ThemeState = {
 };
 
 export type MenuItemTypes = {
-  handlePress: () => void;
+  handlePress: (val: string) => void;
   scheme: string;
   value: string;
+};
+
+export type SchemeState = {
+  scheme: string;
+  setInitialScheme: () => void;
+  setColorScheme: (by: string) => void;
+};
+
+export type CurrentChatStoreTypes = {
+  chatState: {
+    currentChat: MessageTypes;
+    currentResponse: string;
+    currentChatTitle: string | undefined;
+  };
+  setCurrentChat: (messages: MessageTypes, mutate?: boolean) => void;
+  setCurrentResponse: (by: string) => void;
+  setCurrentChatTitle: (by: string | undefined) => void;
 };

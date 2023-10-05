@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useColorScheme} from 'react-native';
+import {useColorScheme, LogBox} from 'react-native';
 import {Provider} from 'react-native-paper';
 
 import useChatHistoryStore from './src/store/useChatHistoryStore';
@@ -8,6 +8,10 @@ import DrawerNavigator from './src/navigators/DrawerNavigator';
 import {getScheme, getTheme} from './src/utils/helpers';
 import {ThemeState} from './src/types';
 
+// import {deleteAllChats} from './src/database/sqlite';
+
+LogBox.ignoreLogs(['new NativeEventEmitter']);
+
 const App = () => {
   const [theme, setTheme] = useState<ThemeState>();
 
@@ -15,7 +19,7 @@ const App = () => {
   const {scheme, setInitialScheme} = useColorSchemeStore(state => state);
 
   const deviceScheme = useColorScheme();
-
+  // deleteAllChats();
   useEffect(() => {
     setChatHistory();
   }, [setChatHistory]);

@@ -20,9 +20,7 @@ const ColorScheme = () => {
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
-  const handleDefPress = () => setColorScheme('default');
-  const handleLightPress = () => setColorScheme('light');
-  const handleDarkPress = () => setColorScheme('dark');
+  const onSchemeChange = (val: string) => setColorScheme(val);
 
   return (
     <Menu
@@ -30,9 +28,9 @@ const ColorScheme = () => {
       visible={visible}
       contentStyle={styles.container}
       anchor={<Anchor openMenu={openMenu} />}>
-      <MenuItem handlePress={handleDefPress} scheme={scheme} value="default" />
-      <MenuItem handlePress={handleLightPress} scheme={scheme} value="light" />
-      <MenuItem handlePress={handleDarkPress} scheme={scheme} value="dark" />
+      <MenuItem handlePress={onSchemeChange} scheme={scheme} value="default" />
+      <MenuItem handlePress={onSchemeChange} scheme={scheme} value="light" />
+      <MenuItem handlePress={onSchemeChange} scheme={scheme} value="dark" />
     </Menu>
   );
 };

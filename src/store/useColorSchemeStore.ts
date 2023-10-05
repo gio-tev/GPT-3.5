@@ -1,11 +1,6 @@
 import {create} from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export type SchemeState = {
-  scheme: string;
-  setInitialScheme: () => void;
-  setColorScheme: (by: string) => void;
-};
+import {SchemeState} from '../types';
 
 const useColorSchemeStore = create<SchemeState>(set => ({
   scheme: '',

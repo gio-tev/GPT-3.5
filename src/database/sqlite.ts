@@ -110,7 +110,25 @@ export const deleteChat = async (id: number): Promise<SQLite.ResultSet> => {
         [id],
         (_, result) => resolve(result),
         (_, error) => {
-          console.log('-------- deleteChat');
+          console.log(error, '-------- deleteChat');
+          reject(error);
+        },
+      );
+    });
+  });
+
+  return promise;
+};
+
+export const deleteAllChats = async (): Promise<SQLite.ResultSet> => {
+  const promise = new Promise<SQLite.ResultSet>((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'DELETE FROM ChatHistory',
+        [],
+        (_, result) => resolve(result),
+        (_, error) => {
+          console.log('-------- deleteAllChats');
           reject(error);
         },
       );

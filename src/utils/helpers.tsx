@@ -18,8 +18,8 @@ export const menuButton = (navigation: ChatNavigationProp) => (
   <MenuButton navigation={navigation} />
 );
 
-export const deleteButton = ({color, navigation, id}: DeleteButtonTypes) => (
-  <DeleteButton {...{color, navigation, id}} />
+export const deleteButton = (props: DeleteButtonTypes) => (
+  <DeleteButton {...props} />
 );
 
 export const sendIcon = ({iconColor, iconBackgroundColor}: SendIconTypes) => (

@@ -1,7 +1,8 @@
+// import {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import User from '../chat/User';
-import Bot from '../chat/Bot';
+import User from './User';
+import Bot from './Bot';
 import {FlatListItemPropTypes} from '../../types';
 
 const FlatListItem = ({
@@ -23,13 +24,11 @@ const FlatListItem = ({
 
   const styles = getStyles(backgroundColor);
 
+  const message = isLastIndex && response ? currentResponse : content;
+
   return (
     <View style={styles.containder}>
-      {isRoleUSer ? (
-        <User {...{content}} />
-      ) : (
-        <Bot {...{isLastIndex, currentResponse, response, content}} />
-      )}
+      {isRoleUSer ? <User content={content} /> : <Bot message={message} />}
     </View>
   );
 };

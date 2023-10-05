@@ -17,7 +17,7 @@ const MenuItem = ({handlePress, scheme, value}: MenuItemTypes) => {
   return (
     <TouchableRipple
       rippleColor={background}
-      onPress={handlePress}
+      onPress={() => handlePress(value)}
       style={styles.container}>
       <>
         <RadioButton
@@ -25,7 +25,7 @@ const MenuItem = ({handlePress, scheme, value}: MenuItemTypes) => {
           uncheckedColor={primary}
           value={value}
           status={scheme === value ? 'checked' : 'unchecked'}
-          onPress={handlePress}
+          onPress={() => handlePress(value)}
         />
         <Menu.Item titleStyle={styles.menuItem} title={title} dense />
       </>
