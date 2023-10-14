@@ -26,14 +26,21 @@ const useChatbot = () => {
 
       if (data.error) throw new Error(data.error.message);
 
-      const responseMessage = data.choices[0].message.content;
+      let responseMessage = data.choices[0].message.content;
 
       const titleRequested = messages
         .at(-1)
         ?.content.startsWith(titleRequestText);
 
-      if (titleRequested) setChatTitle(responseMessage);
-      else setResponse(responseMessage + '_' + Date.now());
+      if (titleRequested) {
+        if (responseMessage.startsWith('"') && responseMessage.endsWith('"')) {
+          responseMessage = responseMessage.slice(1, -1);
+        }
+
+        setChatTitle(responseMessage);
+      } else {
+        setResponse(responseMessage + '_' + Date.now());
+      }
 
       setError(false);
     } catch (err) {
