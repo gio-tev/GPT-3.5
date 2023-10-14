@@ -10,8 +10,6 @@ const useChatEffects = (...args: EffectState[]) => {
   const {
     response,
     chatTitle,
-    error,
-    setHasError,
     fetchData,
     currentChat,
     currentChatTitle,
@@ -109,12 +107,6 @@ const useChatEffects = (...args: EffectState[]) => {
       }, 10);
     }
   }, [response, setCurrentChat, setCurrentResponse]);
-
-  useEffect(() => {
-    if (error) {
-      setHasError(true);
-    }
-  }, [error, setHasError]);
 };
 
 export default useChatEffects;

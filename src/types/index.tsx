@@ -52,8 +52,8 @@ export type DeleteButtonProps = {
 export type EffectState = {
   response: string;
   chatTitle: string;
-  error: boolean;
-  setHasError: React.Dispatch<React.SetStateAction<boolean>>;
+  // error: boolean;
+  // setHasError: React.Dispatch<React.SetStateAction<boolean>>;
   fetchData: (messages: MessageTypes) => Promise<void>;
 
   currentChat: MessageTypes;

@@ -1,7 +1,11 @@
 import {View, Text, StyleSheet} from 'react-native';
 import {useTheme, Button} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
+const Error = () => {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   const {
     colors: {
       error: errorColor,
@@ -10,6 +14,13 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
   } = useTheme();
 
   const styles = getStyles(errorColor);
+
+  const handleRefresh = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Chat'}],
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -21,9 +32,7 @@ const Error = ({handleRefresh}: {handleRefresh: () => void}) => {
         icon="refresh"
         mode="text"
         accessibilityLabel="refresh"
-        style={{
-          borderRadius: 10,
-        }}
+        style={{borderRadius: 10}}
         contentStyle={{padding: -10}}
         onPress={handleRefresh}>
         Refresh
